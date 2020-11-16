@@ -5,12 +5,14 @@
  */
 package movierecsys.dal;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import movierecsys.be.Movie;
@@ -28,7 +30,7 @@ public class MovieDAO {
      * @return List of movies.
      * @throws java.io.FileNotFoundException
      */
-    public List<Movie> getAllMovies() throws FileNotFoundException, IOException {
+    public List<Movie> getAllMovies() throws IOException {
         List<Movie> allMovies = new ArrayList<>();
         File file = new File(MOVIE_SOURCE);
 
@@ -65,8 +67,7 @@ public class MovieDAO {
                 title += "," + arrMovie[i];
             }
         }
-        Movie mov = new Movie(id, year, title);
-        return mov;
+        return new Movie(id, year, title);
     }
 
     /**
@@ -77,9 +78,42 @@ public class MovieDAO {
      * @return The object representation of the movie added to the persistence
      * storage.
      */
-    private Movie createMovie(int releaseYear, String title) {
-        //TODO Create movie.
-        return null;
+    private Movie createMovie(int releaseYear, String title) throws Exception {
+        Path path = new File(MOVIE_SOURCE).toPath();
+        int id;
+        try ( BufferedWriter bw = Files.newBufferedWriter(path, StandardOpenOption.SYNC, StandardOpenOption.APPEND, StandardOpenOption.WRITE))
+        {
+            id = getNextAvailableMovieID();
+            bw.newLine();
+            bw.write(id + "," + releaseYear + "," + title);
+        } catch (IOException ex){
+            throw new Exception();
+        }
+        return new Movie(id, releaseYear, title);
+    }
+
+    /**
+     * Examines all stored movies and returns the next available highest ID.
+     *
+     * @return
+     * @throws IOException
+     */
+    private int getNextAvailableMovieID() throws IOException {
+        List<Movie> allMovies = getAllMovies();
+        if (allMovies == null || allMovies.isEmpty())
+        {
+            return 1;
+        }
+        allMovies.sort(Comparator.comparingInt(Movie::getId));
+        int id = allMovies.get(0).getId();
+        for (Movie allMovie : allMovies) {
+            if (allMovie.getId() <= id) {
+                id++;
+            } else {
+                return id;
+            }
+        }
+        return id;
     }
 
     /**
@@ -87,8 +121,32 @@ public class MovieDAO {
      *
      * @param movie The movie to delete.
      */
-    private void deleteMovie(Movie movie) {
-        //TODO Delete movie
+    private void deleteMovie(Movie movie) throws Exception {
+        {
+            try
+            {
+                File file = new File(MOVIE_SOURCE);
+                if (!file.canWrite())
+                {
+                    throw new Exception("Can't write to movie storage");
+                }
+                List<Movie> movies = getAllMovies();
+                movies.remove(movie);
+                OutputStream os = Files.newOutputStream(file.toPath());
+                try ( BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os)))
+                {
+                    for (Movie mov : movies)
+                    {
+                        String line = mov.getId() + "," + mov.getYear() + "," + mov.getTitle();
+                        bw.write(line);
+                        bw.newLine();
+                    }
+                }
+            } catch (IOException ex)
+            {
+                throw new Exception("Could not delete movie.", ex);
+            }
+        }
     }
 
     /**
@@ -97,8 +155,33 @@ public class MovieDAO {
      *
      * @param movie The updated movie.
      */
-    private void updateMovie(Movie movie) {
-        //TODO Update movies
+    private void updateMovie(Movie movie) throws Exception {
+        try
+        {
+            File tmp = new File(movie.hashCode() + ".txt"); //Creates a temp file for writing to.
+            List<Movie> allMovies = getAllMovies();
+            allMovies.removeIf((Movie t) -> t.getId() == movie.getId());
+            allMovies.add(movie);
+
+            //I'll sort the movies by their ID's
+            allMovies.sort(Comparator.comparingInt(Movie::getId));
+
+            try ( BufferedWriter bw = new BufferedWriter(new FileWriter(tmp)))
+            {
+                for (Movie mov : allMovies)
+                {
+                    bw.write(mov.getId() + "," + mov.getYear() + "," + mov.getTitle());
+                    bw.newLine();
+                }
+            }
+            //Overwrite the movie file wit the tmp one.
+            Files.copy(tmp.toPath(), new File(MOVIE_SOURCE).toPath(), StandardCopyOption.REPLACE_EXISTING);
+            //Clean up after the operation is done (Remove tmp)
+            Files.delete(tmp.toPath());
+        } catch (IOException ex)
+        {
+            throw new Exception("Could not update movie.", ex);
+        }
     }
 
     /**
@@ -107,9 +190,18 @@ public class MovieDAO {
      * @param id ID of the movie.
      * @return A Movie object.
      */
-    private Movie getMovie(int id) {
-        //TODO Get one Movie
-        return null;
+    private Movie getMovie(int id) throws IOException {
+        List<Movie> all = getAllMovies();
+
+        int index = Collections.binarySearch(all, new Movie(id, 0, ""), Comparator.comparingInt(Movie::getId));
+
+        if (index >= 0)
+        {
+            return all.get(index);
+        } else
+        {
+            throw new IllegalArgumentException("No movie with ID: " + id + " is found.");
+        }
     }
 
 }
