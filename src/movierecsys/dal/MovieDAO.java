@@ -121,7 +121,7 @@ public class MovieDAO {
      *
      * @param movie The movie to delete.
      */
-    private void deleteMovie(Movie movie) throws Exception {
+    public void deleteMovie(Movie movie) throws Exception {
         {
             try
             {

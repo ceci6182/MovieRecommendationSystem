@@ -47,6 +47,12 @@ public class Movie
     {
         this.year = year;
     }
+
+    @Override
+    public String toString()
+    {
+        return id + ": " + title + " (" + year + '}';
+    }
     
     
 

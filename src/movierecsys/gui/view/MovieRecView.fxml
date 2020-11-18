@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="movierecsys.gui.controller.MovieRecController">
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="movierecsys.gui.controller.MovieRecController">
    <top>
       <VBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
          <children>
@@ -29,8 +31,30 @@
    <center>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="txtMovieSearcjh" promptText="search movies" />
+            <TextField fx:id="txtMovieSearch" onKeyTyped="#handleMovieSearch" promptText="search movies" />
             <ListView fx:id="lstMovies" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+            <AnchorPane prefHeight="70.0" prefWidth="450.0">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <children>
+                  <Button layoutX="14.0" layoutY="15.0" mnemonicParsing="false" onAction="#btnUpdateMovie" prefHeight="50.0" prefWidth="130.0" text="Update movie" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="305.0" AnchorPane.topAnchor="10.0">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Button>
+                  <Button layoutX="160.0" layoutY="15.0" mnemonicParsing="false" onAction="#btnDeleteMovie" prefHeight="50.0" prefWidth="130.0" text="Delete Movie" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="160.0" AnchorPane.rightAnchor="160.0" AnchorPane.topAnchor="10.0">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Button>
+                  <Button layoutX="306.0" layoutY="15.0" mnemonicParsing="false" onAction="#btnAddMovie" prefHeight="50.0" prefWidth="130.0" text="Add Movie" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="305.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="10.0">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Button>
+               </children>
+            </AnchorPane>
          </children>
       </VBox>
    </center>
