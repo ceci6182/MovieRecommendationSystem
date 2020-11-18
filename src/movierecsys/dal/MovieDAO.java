@@ -98,7 +98,7 @@ public class MovieDAO {
      * @return
      * @throws IOException
      */
-    private int getNextAvailableMovieID() throws IOException {
+    public int getNextAvailableMovieID() throws IOException {
         List<Movie> allMovies = getAllMovies();
         if (allMovies == null || allMovies.isEmpty())
         {
