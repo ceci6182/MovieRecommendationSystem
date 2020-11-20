@@ -21,6 +21,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import movierecsys.be.Movie;
 import movierecsys.gui.model.MovieModel;
+import movierecsys.gui.model.UserModel;
 
 /**
  *
@@ -31,6 +32,7 @@ public class MovieRecController implements Initializable
     public TextField txtMovieTitle;
     public TextField txtReleaseYear;
     MovieModel movieModel = new MovieModel();
+    UserModel userModel = new UserModel();
 
     /**
      * The TextField containing the URL of the targeted website.
@@ -44,13 +46,25 @@ public class MovieRecController implements Initializable
     @FXML
     private ListView<Movie> lstMovies;
 
+    /**
+     * The TextField containing the URL of the targeted website.
+     */
+    @FXML
+    public TextField txtUserSearch;
+
+    /**
+     * The TextField containing the query word.
+     */
+    @FXML
+    public ListView lstUsers;
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
        lstMovies.setItems(movieModel.getMovies());
         setMovieSelection();
-        
+        lstUsers.setItems(userModel.getUsers());
     }
 
     /**
@@ -88,7 +102,7 @@ public class MovieRecController implements Initializable
         }
     }
 
-    public void btnUpdateMovie(ActionEvent actionEvent) {
+    public void btnUpdateMovie(ActionEvent actionEvent) throws Exception {
         Movie selectedMovie = lstMovies.getSelectionModel().getSelectedItem();
         if (selectedMovie != null)
         {
@@ -101,12 +115,12 @@ public class MovieRecController implements Initializable
         }
     }
 
-    public void btnDeleteMovie(ActionEvent actionEvent) {
+    public void btnDeleteMovie(ActionEvent actionEvent) throws Exception {
         Movie selectedMovie = lstMovies.getSelectionModel().getSelectedItem();
         movieModel.delete(selectedMovie);
     }
 
-    public void btnAddMovie(ActionEvent actionEvent) throws IOException {
+    public void btnAddMovie(ActionEvent actionEvent) throws Exception {
         String movieTitle = txtMovieTitle.getText().trim();
         int releaseYear = Integer.parseInt(txtReleaseYear.getText().trim());
         movieModel.add(releaseYear,movieTitle);
@@ -115,5 +129,16 @@ public class MovieRecController implements Initializable
     public void btnClear(ActionEvent actionEvent) {
         txtMovieTitle.clear();
         txtReleaseYear.clear();
+    }
+
+    public void handleUserSearch(KeyEvent keyEvent) {
+        String queue = txtUserSearch.getText().trim();
+        if (queue.isEmpty() || queue.isBlank()) {
+            lstUsers.setItems(userModel.getUsers());
+        }
+        else {
+            userModel.search(queue);
+            lstUsers.setItems(userModel.getSearchUsers());
+        }
     }
 }

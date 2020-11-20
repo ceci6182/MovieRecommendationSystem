@@ -39,53 +39,27 @@ public MovieModel() {
         return searchMovies;
     }
 
-    public void update (Movie movie) {
-        if (movies.remove(movie))
+    public void update (Movie selectedMovie) throws Exception {
+        movieDAO.updateMovie(selectedMovie);
+        if (movies.remove(selectedMovie))
         {
-            movies.add(movie);
-            movies.sort(new Comparator<Movie>()
-            {
-                @Override
-                public int compare(Movie arg0, Movie arg1)
-                {
-                    return arg0.getId() - arg1.getId();
-                }
-
-            });
+            movies.add(selectedMovie);
+            movies.sort((arg0, arg1) -> arg0.getId() - arg1.getId());
         }
+
     }
 
-    public void delete (Movie movie) {
+    public void delete (Movie movie) throws Exception {
+        movieDAO.deleteMovie(movie);
         movies.remove(movie);
     }
 
-    public void add (int year, String title) throws IOException {
-        movies.add(new Movie(getNextAvailableMovieID(), year, title));
+    public void add (int year, String title) throws Exception {
+        Movie movie = movieDAO.createMovie(year, title);
+        movies.add(movie);
         movies.sort(Comparator.comparingInt(Movie::getId));
     }
 
-    /**
-     * Examines all stored movies and returns the next available highest ID.
-     *
-     * @return
-     * @throws IOException
-     */
-    public int getNextAvailableMovieID() throws IOException {
-        if (movies == null || movies.isEmpty())
-        {
-            return 1;
-        }
-        movies.sort(Comparator.comparingInt(Movie::getId));
-        int id = movies.get(0).getId();
-        for (Movie allMovie : movies) {
-            if (allMovie.getId() <= id) {
-                id++;
-            } else {
-                return id;
-            }
-        }
-        return id;
-    }
 }
 
 

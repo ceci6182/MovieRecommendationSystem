@@ -58,6 +58,10 @@ public class Rating
         return movie;
     }
 
+    public int getMovieId() {
+        return movie.getId();
+    }
+
     /**
      * Gets the rating user.
      *

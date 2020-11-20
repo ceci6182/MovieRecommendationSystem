@@ -4385,7 +4385,7 @@
 4385,1994,Sharpe 5: Sharpe's Honour
 4386,1985,The Return of the Living Dead
 4387,2005,Nobody Knows
-4388,NULL,Ancient Civilizations: Rome and Pompeii
+4388,3,Hejsa
 4389,2003,A Man Apart
 4390,2000,Get Your Stuff
 4391,1999,Natalie Merchant: Live in Concert
@@ -4791,7 +4791,7 @@
 4791,1940,Pinocchio
 4792,1973,It's Alive
 4793,1973,Breezy
-4794,NULL,Ancient Civilizations: Land of the Pharaohs
+4794,4,Hejsa
 4795,1996,Sexy and Dangerous
 4796,2003,MTV Pilates
 4797,2005,Gallagher: The Smashing Watermelon Collection
@@ -6480,7 +6480,7 @@
 6480,2001,Ten Tiny Love Stories
 6481,2000,Beat
 6482,1984,Gremlins
-6483,2001,Smokey Joe's Café
+6483,2001,Smokey Joe's Cafï¿½
 6484,1994,Poirot: Hercule Poirot's Christmas
 6485,2001,Crossfire Trail
 6486,1994,The Madness of King George
@@ -7238,7 +7238,6 @@
 7238,2003,Prozac Nation
 7239,1968,The Lion in Winter
 7240,1987,Beverly Hills Cop II
-7241,NULL,Ancient Civilizations: Athens and Greece
 7242,1997,Love Jones
 7243,2003,My Sister's Keeper
 7244,2004,History of Rock 'N' Roll
@@ -10779,7 +10778,6 @@
 10779,1983,The Fourth Man
 10780,2000,Signing Made Easy
 10781,2004,Airline: Season 1
-10782,NULL,Roti Kapada Aur Makaan
 10783,1940,The Mummy's Hand / The Mummy's Tomb
 10784,2003,Elf: Bonus Material
 10785,2000,U-571
@@ -15915,7 +15913,6 @@
 15915,1960,Danger Man: Season 1
 15916,2000,Crazy Richard & I Can't Even Think Straight
 15917,1991,Ren & Stimpy: Seasons 1 and 2
-15918,NULL,Hote Hote Pyaar Ho Gaya
 15919,2004,Hellboy
 15920,1985,L'Effrontee
 15921,1967,How to Succeed in Business Without Really Trying
@@ -16675,7 +16672,6 @@
 16675,1997,Arthur Makes the Team
 16676,1981,Wolfen
 16677,1946,Night and Day
-16678,NULL,Jimmy Hollywood
 16679,1999,P.U.N.K.S.
 16680,2001,Vacuuming Completely Nude in Paradise
 16681,2000,Juliet in Love
@@ -17664,7 +17660,6 @@
 17664,2002,Pauline and Paulette
 17665,1998,Shark Skin Man and Peach Hip Girl
 17666,2000,Fleeing by Night
-17667,NULL,Eros Dance Dhamaka
 17668,1998,Secret Defense
 17669,1986,Desert Bloom
 17670,1957,Dr. Seuss: The Grinch Grinches The Cat in the Hat

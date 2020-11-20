@@ -56,7 +56,7 @@ public class MovieDAO {
      * @return
      * @throws NumberFormatException
      */
-    private Movie stringArrayToMovie(String t) {
+    public Movie stringArrayToMovie(String t) {
         String[] arrMovie = t.split(",");
 
         int id = Integer.parseInt(arrMovie[0]);
@@ -78,7 +78,7 @@ public class MovieDAO {
      * @return The object representation of the movie added to the persistence
      * storage.
      */
-    private Movie createMovie(int releaseYear, String title) throws Exception {
+    public Movie createMovie(int releaseYear, String title) throws Exception {
         Path path = new File(MOVIE_SOURCE).toPath();
         int id;
         try ( BufferedWriter bw = Files.newBufferedWriter(path, StandardOpenOption.SYNC, StandardOpenOption.APPEND, StandardOpenOption.WRITE))
@@ -155,7 +155,7 @@ public class MovieDAO {
      *
      * @param movie The updated movie.
      */
-    private void updateMovie(Movie movie) throws Exception {
+    public void updateMovie(Movie movie) throws Exception {
         try
         {
             File tmp = new File(movie.hashCode() + ".txt"); //Creates a temp file for writing to.
@@ -190,7 +190,7 @@ public class MovieDAO {
      * @param id ID of the movie.
      * @return A Movie object.
      */
-    private Movie getMovie(int id) throws IOException {
+    public Movie getMovie(int id) throws IOException {
         List<Movie> all = getAllMovies();
 
         int index = Collections.binarySearch(all, new Movie(id, 0, ""), Comparator.comparingInt(Movie::getId));
