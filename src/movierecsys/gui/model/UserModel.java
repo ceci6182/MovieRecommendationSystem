@@ -2,16 +2,12 @@ package movierecsys.gui.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import movierecsys.be.Movie;
 import movierecsys.be.User;
-import movierecsys.bll.util.MovieSearcher;
 import movierecsys.bll.util.UserSearcher;
-import movierecsys.dal.MovieDAO;
 import movierecsys.dal.UserDAO;
 
 import java.io.IOException;
 import java.util.Comparator;
-import java.util.List;
 
 public class UserModel {
     ObservableList<User> users;
@@ -47,7 +43,7 @@ public class UserModel {
         if (users.remove(selectedUser))
         {
             users.add(selectedUser);
-            users.sort((arg0, arg1) -> arg0.getId() - arg1.getId());
+            users.sort(Comparator.comparingInt(User::getId));
         }
 
     }

@@ -5,23 +5,18 @@
  */
 package movierecsys.gui.controller;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 import movierecsys.be.Movie;
+import movierecsys.be.User;
 import movierecsys.gui.model.MovieModel;
 import movierecsys.gui.model.UserModel;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  *
@@ -56,7 +51,7 @@ public class MovieRecController implements Initializable
      * The TextField containing the query word.
      */
     @FXML
-    public ListView lstUsers;
+    public ListView<User> lstUsers;
 
 
     @Override
@@ -74,24 +69,17 @@ public class MovieRecController implements Initializable
     {
         //I do this to receive updates when a new movie is selected from the list of all movies:
         lstMovies.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        lstMovies.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Movie>()
-        {
-
-            @Override
-            public void changed(ObservableValue<? extends Movie> observable, Movie oldValue, Movie newValue)
+        lstMovies.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null)
             {
-                if (newValue != null)
-                {
-                    txtMovieTitle.setText(newValue.getTitle());
-                    txtReleaseYear.setText(newValue.getYear() + "");
-                }
+                txtMovieTitle.setText(newValue.getTitle());
+                txtReleaseYear.setText(newValue.getYear() + "");
             }
-
         });
 
     }
 
-    public void handleMovieSearch(KeyEvent keyEvent) {
+    public void handleMovieSearch() {
         String queue = txtMovieSearch.getText().trim();
         if (queue.isEmpty() || queue.isBlank()) {
             lstMovies.setItems(movieModel.getMovies());
@@ -102,7 +90,7 @@ public class MovieRecController implements Initializable
         }
     }
 
-    public void btnUpdateMovie(ActionEvent actionEvent) throws Exception {
+    public void btnUpdateMovie() throws Exception {
         Movie selectedMovie = lstMovies.getSelectionModel().getSelectedItem();
         if (selectedMovie != null)
         {
@@ -115,23 +103,23 @@ public class MovieRecController implements Initializable
         }
     }
 
-    public void btnDeleteMovie(ActionEvent actionEvent) throws Exception {
+    public void btnDeleteMovie() throws Exception {
         Movie selectedMovie = lstMovies.getSelectionModel().getSelectedItem();
         movieModel.delete(selectedMovie);
     }
 
-    public void btnAddMovie(ActionEvent actionEvent) throws Exception {
+    public void btnAddMovie() throws Exception {
         String movieTitle = txtMovieTitle.getText().trim();
         int releaseYear = Integer.parseInt(txtReleaseYear.getText().trim());
         movieModel.add(releaseYear,movieTitle);
     }
 
-    public void btnClear(ActionEvent actionEvent) {
+    public void btnClear() {
         txtMovieTitle.clear();
         txtReleaseYear.clear();
     }
 
-    public void handleUserSearch(KeyEvent keyEvent) {
+    public void handleUserSearch() {
         String queue = txtUserSearch.getText().trim();
         if (queue.isEmpty() || queue.isBlank()) {
             lstUsers.setItems(userModel.getUsers());

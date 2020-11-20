@@ -8,7 +8,6 @@ import movierecsys.dal.MovieDAO;
 
 import java.io.IOException;
 import java.util.Comparator;
-import java.util.List;
 
 public class MovieModel {
     ObservableList<Movie> movies;
@@ -44,7 +43,7 @@ public MovieModel() {
         if (movies.remove(selectedMovie))
         {
             movies.add(selectedMovie);
-            movies.sort((arg0, arg1) -> arg0.getId() - arg1.getId());
+            movies.sort(Comparator.comparingInt(Movie::getId));
         }
 
     }

@@ -5,6 +5,8 @@
  */
 package movierecsys.dal;
 
+import movierecsys.be.User;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -12,9 +14,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
-import movierecsys.be.Movie;
-import movierecsys.be.User;
 
 /**
  *

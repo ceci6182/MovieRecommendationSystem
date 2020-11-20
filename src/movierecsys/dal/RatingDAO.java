@@ -40,7 +40,9 @@ public class RatingDAO
         {
             bw.newLine();
             bw.write(rating.getMovie().getId() + "," + rating.getUser().getId() + "," + rating.getRating());
-        } catch (IOException ex){}
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
     
     /**
@@ -133,7 +135,7 @@ public class RatingDAO
      * Gets all ratings from all users.
      * @return List of all ratings.
      */
-    public List<Rating> getAllRatings() throws FileNotFoundException {
+    public List<Rating> getAllRatings() {
         List<Rating> allRatings = new ArrayList<>();
         File file = new File(RATING_SOURCE);
 
@@ -170,12 +172,11 @@ public class RatingDAO
      * @param user The user 
      * @return The list of ratings.
      */
-    public List<Rating> getRatings(User user) throws FileNotFoundException {
+    public List<Rating> getRatings(User user) {
         List<Rating> allRatings = getAllRatings();
         List<Rating> resultRatings = new ArrayList<>();
 
-        for (int i = 0; i<allRatings.size(); i++) {
-            Rating t = allRatings.get(i);
+        for (Rating t : allRatings) {
             if (t.getUser() == user) {
                 resultRatings.add(t);
             }
