@@ -28,13 +28,13 @@ public class RatingDAO
     private static final String RATING_SOURCE = "data/ratings.txt";
     MovieDAO movieDAO = new MovieDAO();
     UserDAO userDAO = new UserDAO();
+    boolean hasRatingsBeenAdded = false;
     
     /**
      * Persists the given rating.
      * @param rating the rating to persist.
      */
-    public void createRating(Rating rating)
-    {
+    public void createRating(Rating rating) throws IOException {
         Path path = new File(RATING_SOURCE).toPath();
         try ( BufferedWriter bw = Files.newBufferedWriter(path, StandardOpenOption.SYNC, StandardOpenOption.APPEND, StandardOpenOption.WRITE))
         {
@@ -43,6 +43,7 @@ public class RatingDAO
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        movieDAO.rateMovie(rating.getMovieId(), rating.getRating());
     }
     
     /**
@@ -135,25 +136,21 @@ public class RatingDAO
      * Gets all ratings from all users.
      * @return List of all ratings.
      */
-    public List<Rating> getAllRatings() {
+    public List<Rating> getAllRatings() throws IOException {
         List<Rating> allRatings = new ArrayList<>();
         File file = new File(RATING_SOURCE);
 
-        try {
-            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    try {
-                        Rating rating = stringArrayToRating(line);
-                        allRatings.add(rating);
-                    } catch (Exception ex) {
-                        //Do nothing we simply do not accept malformed lines of data.
-                        //In a perfect world you should at least log the incident.
-                    }
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                try {
+                    Rating rating = stringArrayToRating(line);
+                    allRatings.add(rating);
+                } catch (Exception ex) {
+                    //Do nothing we simply do not accept malformed lines of data.
+                    //In a perfect world you should at least log the incident.
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         return allRatings;
     }
@@ -172,7 +169,7 @@ public class RatingDAO
      * @param user The user 
      * @return The list of ratings.
      */
-    public List<Rating> getRatings(User user) {
+    public List<Rating> getRatings(User user) throws IOException {
         List<Rating> allRatings = getAllRatings();
         List<Rating> resultRatings = new ArrayList<>();
 
@@ -183,5 +180,14 @@ public class RatingDAO
         }
         return resultRatings;
     }
-    
+
+    public void addRatingsToMovies() throws IOException {
+        if(!hasRatingsBeenAdded) {
+            for (int i=0; i< getAllRatings().size(); i++) {
+                Rating tempRating = getAllRatings().get(i);
+                movieDAO.rateMovie(tempRating.getMovieId(),tempRating.getRating());
+            }
+            hasRatingsBeenAdded = true;
+        }
+    }
 }

@@ -204,4 +204,9 @@ public class MovieDAO {
         }
     }
 
+    public void rateMovie (int movieId, int rating) throws IOException {
+        Movie tempMovie = getMovie(movieId);
+        tempMovie.addScore(rating);
+    }
+
 }

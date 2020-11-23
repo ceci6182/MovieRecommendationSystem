@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="550.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="movierecsys.gui.controller.MovieRecController">
+<BorderPane prefHeight="700.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="movierecsys.gui.controller.MovieRecController">
    <top>
       <VBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
          <children>
@@ -39,7 +39,7 @@
       </VBox>
    </center>
    <left>
-      <VBox prefHeight="500.0" prefWidth="250.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="650.0" prefWidth="250.0" BorderPane.alignment="CENTER">
          <children>
             <Label alignment="TOP_CENTER" contentDisplay="CENTER" prefWidth="100.0" text="Movie Menu" textAlignment="CENTER">
                <font>
@@ -51,35 +51,35 @@
             </Label>
             <HBox prefHeight="20.0" prefWidth="204.0">
                <children>
-                  <Label prefHeight="20.0" prefWidth="80.0" text="Movie title:">
+                  <Label prefHeight="20.0" prefWidth="70.0" text="Movie title:">
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="2.0" top="5.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="txtMovieTitle" prefHeight="20.0">
+                  <TextField fx:id="txtMovieTitle" prefHeight="25.0" prefWidth="165.0">
                      <HBox.margin>
-                        <Insets bottom="2.0" left="2.0" right="2.0" top="5.0" />
+                        <Insets bottom="2.0" left="2.0" right="5.0" top="5.0" />
                      </HBox.margin>
                   </TextField>
                </children>
             </HBox>
             <HBox prefHeight="20.0" prefWidth="200.0">
                <children>
-                  <Label prefHeight="20.0" prefWidth="80.0" text="Release year:">
+                  <Label prefHeight="20.0" prefWidth="70.0" text="Release year:">
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="2.0" top="5.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="txtReleaseYear" prefHeight="20.0">
+                  <TextField fx:id="txtReleaseYear" prefHeight="20.0" prefWidth="165.0">
                      <HBox.margin>
-                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                        <Insets bottom="2.0" left="2.0" right="5.0" top="2.0" />
                      </HBox.margin>
                   </TextField>
                </children>
             </HBox>
-            <HBox prefHeight="39.0" prefWidth="204.0">
+            <HBox prefHeight="20.0" prefWidth="204.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#btnUpdateMovie" prefHeight="26.0" prefWidth="50.0" text="Update">
+                  <Button mnemonicParsing="false" onAction="#btnUpdateMovie" prefHeight="20.0" prefWidth="50.0" text="Update">
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
@@ -90,7 +90,7 @@
                         <Font size="11.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#btnDeleteMovie" prefHeight="26.0" prefWidth="50.0" text="Delete">
+                  <Button mnemonicParsing="false" onAction="#btnDeleteMovie" prefHeight="20.0" prefWidth="50.0" text="Delete">
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
@@ -101,7 +101,7 @@
                         <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#btnAddMovie" prefHeight="26.0" prefWidth="70.0" text="Add Movie">
+                  <Button mnemonicParsing="false" onAction="#btnAddMovie" prefHeight="20.0" prefWidth="70.0" text="Add Movie">
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
@@ -112,14 +112,17 @@
                         <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#btnClear" prefHeight="26.0" prefWidth="50.0" text="Clear">
+                  <Button mnemonicParsing="false" onAction="#btnClear" prefHeight="20.0" prefWidth="50.0" text="Clear">
                      <HBox.margin>
                         <Insets bottom="2.0" left="2.0" right="5.0" top="2.0" />
                      </HBox.margin>
                   </Button>
                </children>
             </HBox>
-            <Separator prefWidth="200.0" />
+            <Separator prefWidth="200.0">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin></Separator>
             <Label alignment="TOP_CENTER" contentDisplay="CENTER" prefWidth="100.0" text="User Menu" textAlignment="JUSTIFY">
                <font>
                   <Font name="System Bold" size="14.0" />
@@ -135,10 +138,14 @@
             </TextField>
             <ListView fx:id="lstUsers" prefHeight="150.0" prefWidth="250.0">
                <VBox.margin>
-                  <Insets left="5.0" right="5.0" />
+                  <Insets bottom="2.0" left="5.0" right="5.0" />
                </VBox.margin>
             </ListView>
-            <Separator prefWidth="200.0" />
+            <Separator prefWidth="200.0">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </Separator>
             <Label alignment="TOP_CENTER" contentDisplay="CENTER" prefWidth="100.0" text="User Rating" textAlignment="JUSTIFY">
                <font>
                   <Font name="System Bold" size="14.0" />
@@ -149,19 +156,32 @@
             </Label>
             <HBox prefHeight="41.0" prefWidth="250.0">
                <children>
-                  <ChoiceBox fx:id="choiceBoxRating" prefHeight="25.0" prefWidth="50.0"> //TODO make choices
+                  <ChoiceBox fx:id="choiceBoxRating" prefHeight="25.0" prefWidth="50.0">
                      <HBox.margin>
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin>
                   </ChoiceBox>
                   <Button mnemonicParsing="false" onAction="#handleConfirmRating" prefWidth="75.0" text="Confirm" />
-                  <TextField>
+                  <TextField fx:id="txtMovieTitle_UserRating">
                      <HBox.margin>
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin>
                   </TextField>
                </children>
             </HBox>
+            <Label alignment="TOP_CENTER" contentDisplay="CENTER" prefWidth="150.0" text="Recommendations:" textAlignment="JUSTIFY">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="50.0" right="50.0" />
+               </VBox.margin>
+            </Label>
+            <ListView fx:id="lstRecommendations" prefHeight="235.0" prefWidth="240.0">
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin>
+            </ListView>
          </children>
       </VBox>
    </left>

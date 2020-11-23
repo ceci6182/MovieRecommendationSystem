@@ -72,6 +72,10 @@ public class Rating
         return user;
     }
 
+    public int getUserId() {
+        return user.getId();
+    }
+
     /**
      * Gets the rating value.
      *
