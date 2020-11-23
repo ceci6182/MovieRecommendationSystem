@@ -5,6 +5,7 @@
  */
 package movierecsys.gui.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
@@ -128,5 +129,9 @@ public class MovieRecController implements Initializable
             userModel.search(queue);
             lstUsers.setItems(userModel.getSearchUsers());
         }
+    }
+
+    public void handleConfirmRating(ActionEvent actionEvent) {
+        //TODO
     }
 }

@@ -149,12 +149,12 @@
             </Label>
             <HBox prefHeight="41.0" prefWidth="250.0">
                <children>
-                  <ChoiceBox fx:id="choiceBoxRating" prefHeight="25.0" prefWidth="50.0">
+                  <ChoiceBox fx:id="choiceBoxRating" prefHeight="25.0" prefWidth="50.0"> //TODO make choices
                      <HBox.margin>
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin>
                   </ChoiceBox>
-                  <Button mnemonicParsing="false" onAction="#handleConformRating" prefWidth="75.0" text="Confirm" />
+                  <Button mnemonicParsing="false" onAction="#handleConfirmRating" prefWidth="75.0" text="Confirm" />
                   <TextField>
                      <HBox.margin>
                         <Insets left="5.0" right="5.0" />
